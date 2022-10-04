@@ -6,7 +6,8 @@ Welcome to ....
 * Interactive Clients
   * spark-shell, Notebook (best for exploration or during development)  
 * Submit Job
-<img width="787" alt="image" src="https://user-images.githubusercontent.com/110751151/193709491-4c494124-8085-4efe-9398-c1b111991c9d.png">
+<img width="787" alt="image" src="https://user-images.githubusercontent.com/110751151/193709549-1c89d3e9-59b6-4ec8-981e-eee196d5ce7c.png">
+
 
 ## Spark Programming Model
 # Spark Structured API Foundation
