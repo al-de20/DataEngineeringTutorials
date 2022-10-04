@@ -6,8 +6,9 @@ Welcome to ....
 * Interactive Clients
   * spark-shell, Notebook (best for exploration or during development)  
 * Submit Job
- * spark-submit, Databricks Notebook, Rest API
-* Excecution Methods
+  * spark-submit, Databricks Notebook, Rest API
+  
+* Excecution Methods:
 <img width="829" alt="image" src="https://user-images.githubusercontent.com/110751151/193713263-5d2dc233-735d-47b0-9548-ba116413dd92.png">
 
 
