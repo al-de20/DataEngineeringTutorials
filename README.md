@@ -11,6 +11,10 @@ Welcome to ....
 * Excecution Methods:
 <img width="829" alt="image" src="https://user-images.githubusercontent.com/110751151/193713263-5d2dc233-735d-47b0-9548-ba116413dd92.png">
 
+## Spark Distributed Processing Model
+
+<img width="829" alt="image" src="https://user-images.githubusercontent.com/110751151/193714273-327992d7-82e4-4668-b81e-139fc1d41d2c.png">
+
 
 
 
