@@ -2,6 +2,7 @@
 Welcome to ....
 
 # Spark Execution Model and Architecture
+## Execution Methods
 * Test
 ## Spark Programming Model
 # Spark Structured API Foundation
