@@ -13,7 +13,7 @@ Welcome to ....
 
 ## Spark Distributed Processing Model
 
-<img width="829" alt="image" src="https://user-images.githubusercontent.com/110751151/193714273-327992d7-82e4-4668-b81e-139fc1d41d2c.png">
+<img width="1108" alt="image" src="https://user-images.githubusercontent.com/110751151/193714744-ddb64ea5-f823-454e-8125-7f6313c2c8b7.png">
 
 
 
