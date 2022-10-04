@@ -7,7 +7,9 @@ Welcome to ....
   * spark-shell, Notebook (best for exploration or during development)  
 * Submit Job
  * spark-submit, Databricks Notebook, Rest API
-![image](https://user-images.githubusercontent.com/110751151/193710500-2a7c342e-ab38-4e21-ae30-8ba4255f28fc.png)
+* Excecution Methods
+<img width="829" alt="image" src="https://user-images.githubusercontent.com/110751151/193713263-5d2dc233-735d-47b0-9548-ba116413dd92.png">
+
 
 
 
