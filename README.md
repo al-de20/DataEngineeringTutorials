@@ -7,6 +7,8 @@ Welcome to ....
   * spark-shell, Notebook (best for exploration or during development)  
 * Submit Job
 <img width="787" alt="image" src="https://user-images.githubusercontent.com/110751151/193709549-1c89d3e9-59b6-4ec8-981e-eee196d5ce7c.png">
+<img width="787" alt="image" src="https://user-images.githubusercontent.com/110751151/193709596-06f0075e-616a-4e1f-9065-5ed03326b568.png">
+
 
 
 ## Spark Programming Model
