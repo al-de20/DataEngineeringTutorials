@@ -3,7 +3,9 @@ Welcome to ....
 
 # Spark Execution Model and Architecture
 ## Execution Methods
-* Test
+* Interactive Clients
+  * spark-shell, Notebook   
+* Submit Job
 ## Spark Programming Model
 # Spark Structured API Foundation
 # Spark Data Sources and Sinks
