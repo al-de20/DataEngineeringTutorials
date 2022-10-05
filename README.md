@@ -29,6 +29,12 @@ In Spark terminology,the master is a driver,and the slaves are the executors.The
 
 As the Driver is created locally the moment the session is disconected, slaves are killed. So this aproach is for interactive work.
 
+Later on in one the test projects, you will see the spark conf looks like and how the set the number of threads when Spark in run locally in laptop for instance.
+
+![image](https://user-images.githubusercontent.com/110751151/194175118-8c719833-ce82-43c1-8044-e2c8c9324a0b.png)
+
+spark.master = local[3] indicates that no cluster will be used and 3 thread will be created to handle the processing.
+
 <img width="894" alt="image" src="https://user-images.githubusercontent.com/110751151/194173789-545e8375-cad7-4a3e-91fa-adebeea1c715.png">
 
 The cluster mode is designed to submit your application to the cluster and let it run. Once an application is submitted to run in cluster mode,
