@@ -29,7 +29,10 @@ In Spark terminology,the master is a driver,and the slaves are the executors.The
 
 As the Driver is created locally the moment the session is disconected, slaves are killed. So this aproach is for interactive work.
 
+<img width="894" alt="image" src="https://user-images.githubusercontent.com/110751151/194173789-545e8375-cad7-4a3e-91fa-adebeea1c715.png">
 
+The cluster mode is designed to submit your application to the cluster and let it run. Once an application is submitted to run in cluster mode,
+a session cab be disconected and the dirver nor slaves will be impacted. So, the cluster mode is meant for submitting long-running jobs to the cluster.
 
 
 
