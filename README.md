@@ -44,6 +44,20 @@ a session cab be disconected and the dirver nor slaves will be impacted. So, the
 
 <img width="837" alt="image" src="https://user-images.githubusercontent.com/110751151/194176240-37118848-0867-43e9-b0fa-da0f753c1f71.png">
 
+## Working with PySpark Shell
+
+<img width="847" alt="image" src="https://user-images.githubusercontent.com/110751151/194179797-9a34307a-b367-4633-9b00-8fb7d674eaf0.png">
+
+On terminal session, lunch pyspark. You'll see somethig similar to this:
+
+<img width="847" alt="image" src="https://user-images.githubusercontent.com/110751151/194179870-4d1d1029-afcd-45e3-9fc9-9f3fce43e25b.png">
+
+Apache Spark is a well-designed system, and it generates a lot of metrics, logs, and other information to monitor and investigate things about your application. A bunch of information is available to you via Spark Context web UI. On the same screenshot you will see the url address to the spark web UI. When you open it, you will see the following screen when clicking Event Timeline:
+
+<img width="679" alt="image" src="https://user-images.githubusercontent.com/110751151/194180343-c0ab38c6-e4e4-4731-9e1d-e4c0c3fbafc7.png">
+
+
+
 
 # Spark Programming Model
 # Spark Structured API Foundation
