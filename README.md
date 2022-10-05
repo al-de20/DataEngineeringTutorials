@@ -20,11 +20,20 @@ You can think of these as runtime containers with some dedicated CPU and memory.
 
 In Spark terminology,the master is a driver,and the slaves are the executors.The Spark engine is going to ask for a container from the underlying cluster manager to start the driver process.Once started,the driver is again going to ask for some more containers to start the executor process.
 
+## Spark Execution Modes
+* Client (Spark shell and Notebooks)
+* Cluster
+
+
+<img width="900" alt="image" src="https://user-images.githubusercontent.com/110751151/194173014-c3e8aeb8-b0db-45ee-b2d4-a6ea4efd0000.png">
+
+As the Driver is created locally the moment the session is disconected, slaves are killed. So this aproach is for interactive work.
 
 
 
 
-## Spark Programming Model
+
+# Spark Programming Model
 # Spark Structured API Foundation
 # Spark Data Sources and Sinks
 # Spark Dataframe and Dataset Transformation
