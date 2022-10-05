@@ -40,6 +40,9 @@ spark.master = local[3] indicates that no cluster will be used and 3 thread will
 The cluster mode is designed to submit your application to the cluster and let it run. Once an application is submitted to run in cluster mode,
 a session cab be disconected and the dirver nor slaves will be impacted. So, the cluster mode is meant for submitting long-running jobs to the cluster.
 
+## Spark Execution Models - When to use what?
+
+<img width="837" alt="image" src="https://user-images.githubusercontent.com/110751151/194176240-37118848-0867-43e9-b0fa-da0f753c1f71.png">
 
 
 # Spark Programming Model
