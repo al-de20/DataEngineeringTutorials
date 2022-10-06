@@ -1,7 +1,7 @@
 # [Tutorials](https://github.com/al-de20/DateEngineeringTutorials/)
 Welcome to ....
 
-# Spark Execution Model and Architecture
+# [Spark Execution Model and Architecture](https://github.com/al-de20/DateEngineeringTutorials/blob/main/Content/Spark_Execution_Model_and_Architecture.md)
 ## Execution Methods
 * Interactive Clients
   * spark-shell, Notebook (best for exploration or during development)  
