@@ -72,7 +72,7 @@ In most cases, you are going to prefer using a notebook for its web-based interf
 
 ## Working with Spark Submit
 
-This mode of operation is mostly used for executing your packaged Spark application on your production cluster. Next screen will show how to submit a pyspark file to a cluster. Look at the spark-submit argument.
+This mode of operation is mostly used for executing a packaged Spark application on a production cluster. Next screenshot will show how to submit a pyspark file to a cluster. Look at the spark-submit argument.
 
 <img width="837" alt="image" src="https://user-images.githubusercontent.com/110751151/194187220-c5261a32-e8c5-4bfd-b4d1-fd006d3c284e.png">
 
