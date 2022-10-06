@@ -86,6 +86,8 @@ spark-submite --master yarn --deploy-mode cluster pi.py 100
 ![image](https://user-images.githubusercontent.com/110751151/194188342-d4766509-3102-48f5-8e3f-fbdf3926ac41.png)
 ![image](https://user-images.githubusercontent.com/110751151/194188395-39489aff-6e39-4152-a0fc-429f805fa656.png)
 ![image](https://user-images.githubusercontent.com/110751151/194188468-0d34a8ea-9a7b-4daa-889a-4fa3dc8fd3ad.png)
+![image](https://user-images.githubusercontent.com/110751151/194188831-e0fbff2c-207e-4798-b871-36bb00f7a961.png)
+
 
 
 
