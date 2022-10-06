@@ -61,10 +61,20 @@ Because we are in a local cluster,and everything is running inside a single JVM.
 <img width="938" alt="image" src="https://user-images.githubusercontent.com/110751151/194185057-73166f97-ba3d-4fd2-8152-20fbc16988c4.png">
 
 
-When you click on the Executors tab, you'll se additional details like the Memory usages and thread assigment (8 cores.threads in this case).
+When you click on the Executors tab, you'll se additional details like the Memory usage and thread assigment (8 cores/threads in this case).
 
 ![image](https://user-images.githubusercontent.com/110751151/194185297-91429ed9-bf46-4227-84e5-a4f6361a12d2.png)
 
+## Working with Notebooks in Cluster
+
+This mode of operation is mostly used by data scientists and data analysts for interactive exploration directly in a production cluster.
+In most cases, you are going to prefer using a notebook for its web-based interface and graph capabilities.
+
+## Working with Spark Submit
+
+This mode of operation is mostly used for executing your packaged Spark application on your production cluster. Next screen will show how to submit a pyspark file to a cluster. Look at the spark-submit argument.
+
+<img width="837" alt="image" src="https://user-images.githubusercontent.com/110751151/194187220-c5261a32-e8c5-4bfd-b4d1-fd006d3c284e.png">
 
 
 
