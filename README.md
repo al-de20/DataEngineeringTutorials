@@ -79,6 +79,11 @@ This mode of operation is mostly used for executing a packaged Spark application
 
 
 # Spark Programming Model
+
+## Creating Spark Project Build Configuration
+## Configuring Spark Project Application Logs
+## Creating Spark Session
+
 # Spark Structured API Foundation
 # Spark Data Sources and Sinks
 # Spark Dataframe and Dataset Transformation
