@@ -89,14 +89,13 @@ spark-submite --master yarn --deploy-mode cluster pi.py 100
 ![image](https://user-images.githubusercontent.com/110751151/194188831-e0fbff2c-207e-4798-b871-36bb00f7a961.png)
 
 
+# Section 4: Spark Programming Model
 
 
+<img width="809" alt="image" src="https://user-images.githubusercontent.com/110751151/194189493-52d1da35-f3ff-4119-842e-bf0061191103.png">
 
+<img width="565" alt="image" src="https://user-images.githubusercontent.com/110751151/194191306-c3d5cf36-bf55-4be1-98ea-c89a5f699038.png">
 
-
-
-
-# Spark Programming Model
 
 ## Creating Spark Project Build Configuration
 ## Configuring Spark Project Application Logs
