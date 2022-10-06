@@ -61,7 +61,10 @@ Because we are in a local cluster,and everything is running inside a single JVM.
 <img width="938" alt="image" src="https://user-images.githubusercontent.com/110751151/194185057-73166f97-ba3d-4fd2-8152-20fbc16988c4.png">
 
 
-When you click on the Executors tab
+When you click on the Executors tab, you'll se additional details like the Memory usages and thread assigment (8 cores.threads in this case).
+
+![image](https://user-images.githubusercontent.com/110751151/194185297-91429ed9-bf46-4227-84e5-a4f6361a12d2.png)
+
 
 
 
