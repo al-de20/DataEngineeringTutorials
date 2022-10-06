@@ -29,11 +29,11 @@ In Spark terminology,the master is a driver,and the slaves are the executors.The
 
 As the Driver is created locally the moment the session is disconected, slaves are killed. So this aproach is for interactive work.
 
-Later on in one the test projects, you will see the spark conf looks like and how the set the number of threads when Spark in run locally in laptop for instance.
+Later on in one the test projects, you will see how the spark conf looks like and how to set the number of threads when Spark is run locally in a laptop for instance.
 
 ![image](https://user-images.githubusercontent.com/110751151/194175118-8c719833-ce82-43c1-8044-e2c8c9324a0b.png)
 
-spark.master = local[3] indicates that no cluster will be used and 3 thread will be created to handle the processing.
+spark.master = local[3] indicates that no cluster will be used and 3 threads will be created to handle the processing.
 
 <img width="894" alt="image" src="https://user-images.githubusercontent.com/110751151/194173789-545e8375-cad7-4a3e-91fa-adebeea1c715.png">
 
@@ -53,9 +53,7 @@ On terminal session, lunch pyspark. You'll see somethig similar to this:
 Apache Spark is a well-designed system, and it generates a lot of metrics, logs, and other information to monitor and investigate things about your application. A bunch of information is available to you via Spark Context web UI. On the same screenshot you will see the url address to the spark web UI. When you open it, you will see the following screen when clicking Event Timeline:
 
 
-Spark started an executor driver process. We do not see the separate driver and executor processes.
-
-Because we are in a local cluster,and everything is running inside a single JVM. And the JVM is a combination of driver and executors. And that's what we see here.
+Spark started an executor driver process. We do not see a separate driver and executor processes because we are in a local cluster,and everything is running inside a single JVM. The JVM is a combination of driver and executors. And that's what we see here.
 
 
 <img width="938" alt="image" src="https://user-images.githubusercontent.com/110751151/194185057-73166f97-ba3d-4fd2-8152-20fbc16988c4.png">
@@ -74,7 +72,7 @@ In most cases, you are going to prefer using a notebook for its web-based interf
 
 This mode of operation is mostly used for executing a packaged Spark application on a production cluster. Next screenshot will show how to submit a pyspark file to a cluster. Look at the spark-submit argument.
 
-spark-submite --master yarn --deploy-mode cluster pi.py 100
+spark-submit --master yarn --deploy-mode cluster pi.py 100
 
 <img width="837" alt="image" src="https://user-images.githubusercontent.com/110751151/194187220-c5261a32-e8c5-4bfd-b4d1-fd006d3c284e.png">
 
@@ -164,6 +162,14 @@ I am going to print a Hello message and run it once.
 ## Creating Spark Project Build Configuration
 ## Configuring Spark Project Application Logs
 ## Creating Spark Session
+## Configuring Spark Session
+## Data Frame Introduction
+## Data Frame Partitions and Executors
+## Spark Transformation and Actions
+## Spark Jobs Stages and Task
+## Undertanding your Execution Plan
+## Unit Testing Spark Application
+
 
 # Spark Structured API Foundation
 # Spark Data Sources and Sinks
