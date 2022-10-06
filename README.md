@@ -91,6 +91,12 @@ spark-submite --master yarn --deploy-mode cluster pi.py 100
 
 # Section 4: Spark Programming Model
 
+In this section, we are going to create and run our first Spark program. We will create a Spark Project and define our project Build Configuration.
+
+I will be using PyCharm as my development IDE. So I am assuming that you already have PyCharm.  
+
+You will also need Python, and I recommend you to get Anaconda Python installed on your machine. These two items are the prerequisite of Spark Programming using the IDE.You should also download Spark binaries and set your SPARK_HOME environment variable.
+
 
 <img width="809" alt="image" src="https://user-images.githubusercontent.com/110751151/194189493-52d1da35-f3ff-4119-842e-bf0061191103.png">
 
@@ -99,18 +105,60 @@ spark-submite --master yarn --deploy-mode cluster pi.py 100
 <img width="813" alt="image" src="https://user-images.githubusercontent.com/110751151/194191620-cb1bea46-356a-4a05-bc25-51480b95cb2b.png">
 <img width="815" alt="image" src="https://user-images.githubusercontent.com/110751151/194191723-aea975ce-d17f-4174-98b4-b3cc12b4e53c.png">
 
+So let's start the PyCharm IDE.
+
+We are going to create a new project.
+
+Give a name to your project.
+
+And chose your Python interpreter and the Virtual environment.
+
+We are going to use a conda environment, so make sure you selected conda in this box.
+
+We will use Python 3.9.
+
+The next box has already picked up the conda file location.
+
+Let's create the project. Wait for a few minutes while conda configures a virtual environment for you.
 
 <img width="565" alt="image" src="https://user-images.githubusercontent.com/110751151/194191306-c3d5cf36-bf55-4be1-98ea-c89a5f699038.png">
 
+But before you do anything, let's install some necessary packages.
+
+Go to Pycharm->Preference and look for your project name.
+
+Select the interpreter. Make sure you are using a conda package manager. So, these are the default packages that are already included in your project. However, this is not enough. We need PySpark also.
 
 ![image](https://user-images.githubusercontent.com/110751151/194192163-d1b05dff-9924-425f-8ed4-d77e0a66f0a7.png)
+
+
 ![image](https://user-images.githubusercontent.com/110751151/194192286-7f87f4ad-27c9-4494-977a-12ffedc4abec.png)
+
+Let's add pyspak by using the search bar and then click on Install package at the botton left corner.
+
 <img width="647" alt="image" src="https://user-images.githubusercontent.com/110751151/194192448-88325959-f7c4-4548-bb51-4d9fd410989c.png">
+
+Let's add pytest for unit testing.
+
 <img width="650" alt="image" src="https://user-images.githubusercontent.com/110751151/194192713-f9252ca5-a2a9-46ef-a9ca-2d8418585ff1.png">
+
+Now, let's create the main program.
+
+Right-click on your project, go to new, and create a Python File, give it a name.
+
+
 ![image](https://user-images.githubusercontent.com/110751151/194192911-e5a1ec71-1fcc-4aa9-9c30-ac07f2dac0e2.png)
 
 
+Let's import the below. You need this line in every Spark program.
 
+From pyspark.sql, import everything.
+
+And, let's create the main entry point of my PySpark program.
+
+I am going to print a Hello message and run it once.
+
+<img width="832" alt="image" src="https://user-images.githubusercontent.com/110751151/194195607-85cd9a20-2e52-46f1-b9e8-0bf301054338.png">
 
 
 ## Creating Spark Project Build Configuration
