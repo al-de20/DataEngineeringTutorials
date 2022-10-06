@@ -79,12 +79,12 @@ spark-submite --master yarn --deploy-mode cluster pi.py 100
 <img width="837" alt="image" src="https://user-images.githubusercontent.com/110751151/194187220-c5261a32-e8c5-4bfd-b4d1-fd006d3c284e.png">
 
 * Key options for spark-submit:
- * ![image](https://user-images.githubusercontent.com/110751151/194188223-29eff731-cd6f-41cd-a4ed-73b2217066f0.png)
- * ![image](https://user-images.githubusercontent.com/110751151/194188252-63b757ce-7c4a-44aa-8f71-7381c6862aaf.png)
- * ![image](https://user-images.githubusercontent.com/110751151/194188323-d2a477fd-6a3e-41b5-b5b7-c755b8ba63c5.png)
- * ![image](https://user-images.githubusercontent.com/110751151/194188342-d4766509-3102-48f5-8e3f-fbdf3926ac41.png)
- * ![image](https://user-images.githubusercontent.com/110751151/194188395-39489aff-6e39-4152-a0fc-429f805fa656.png)
- * ![image](https://user-images.githubusercontent.com/110751151/194188468-0d34a8ea-9a7b-4daa-889a-4fa3dc8fd3ad.png)
+![image](https://user-images.githubusercontent.com/110751151/194188223-29eff731-cd6f-41cd-a4ed-73b2217066f0.png)
+![image](https://user-images.githubusercontent.com/110751151/194188252-63b757ce-7c4a-44aa-8f71-7381c6862aaf.png)
+![image](https://user-images.githubusercontent.com/110751151/194188323-d2a477fd-6a3e-41b5-b5b7-c755b8ba63c5.png)
+![image](https://user-images.githubusercontent.com/110751151/194188342-d4766509-3102-48f5-8e3f-fbdf3926ac41.png)
+![image](https://user-images.githubusercontent.com/110751151/194188395-39489aff-6e39-4152-a0fc-429f805fa656.png)
+![image](https://user-images.githubusercontent.com/110751151/194188468-0d34a8ea-9a7b-4daa-889a-4fa3dc8fd3ad.png)
 
 
 
