@@ -103,6 +103,16 @@ spark-submite --master yarn --deploy-mode cluster pi.py 100
 <img width="565" alt="image" src="https://user-images.githubusercontent.com/110751151/194191306-c3d5cf36-bf55-4be1-98ea-c89a5f699038.png">
 
 
+![image](https://user-images.githubusercontent.com/110751151/194192163-d1b05dff-9924-425f-8ed4-d77e0a66f0a7.png)
+![image](https://user-images.githubusercontent.com/110751151/194192286-7f87f4ad-27c9-4494-977a-12ffedc4abec.png)
+<img width="647" alt="image" src="https://user-images.githubusercontent.com/110751151/194192448-88325959-f7c4-4548-bb51-4d9fd410989c.png">
+<img width="650" alt="image" src="https://user-images.githubusercontent.com/110751151/194192713-f9252ca5-a2a9-46ef-a9ca-2d8418585ff1.png">
+![image](https://user-images.githubusercontent.com/110751151/194192911-e5a1ec71-1fcc-4aa9-9c30-ac07f2dac0e2.png)
+
+
+
+
+
 ## Creating Spark Project Build Configuration
 ## Configuring Spark Project Application Logs
 ## Creating Spark Session
