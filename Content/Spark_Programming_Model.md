@@ -115,9 +115,174 @@ We already defined the console appender. So, I am setting the file appender here
 ![image](https://user-images.githubusercontent.com/110751151/194201678-0d35cbd6-166a-4d4c-b463-d9541d1a280b.png)
 
 
-
 ## Creating Spark Session
+
+We already learned that every Spark program will start a driver. And then, the driver is going to start the executors for doing most of the work. So, the first thing in a Spark program is to create a SparkSession object, which is your Spark Driver.
+
+Well, it is an overwhelming statement, and one can debate if the Spark Session is the driver or the main() method itself is the driver. However, things are going to make a good sense if you start looking at your Spark Session as your driver.
+
+So, I am going to follow this notion. SparkSession is your driver.
+
+When you start the spark-shell or a notebook, they create a Spark Session for you
+and make it available as a variable named spark. However, when you are writing a spark program, then you must create a SparkSession because it is not already provided.
+
+![img_1.png](img_1.png)
+
+Creating a SparkSession is straightforward.
+
+You will declare a variable and use SparkSession.builder().getOrCreate().
+
+That's all. You got your SparkSession object, and we often name it as the spark. SparkSession is a Singleton object, so each Spark application can have one and only one active spark session. And that makes a perfect sense because the SparkSession is your driver, and you cannot have more than one driver in a spark application.
+
+![img_2.png](img_2.png)
+
+Spark is a highly configurable system, and hence your SparkSession is also highly configurable. However, I haven't used any configurations yet. Let's add some configs.
+
+The builder method returns a Builder object, which allows you to configure your SparkSession and finally use the getOrCreate().
+
+![img_3.png](img_3.png)
+
+
+Some configurations, such as AppName, and Master are the most commonly used configs by almost every application. So, we have direct methods to specify them.
+
+However, we also have some overloaded config () methods for all other configurations. Let me define the application name. We also want to set the cluster manager, and we already learn that the cluster manager config is defined as a spark master.
+
+
+Let's define the application name. We also want to set the cluster manager, and we already learn that the cluster manager config is defined as a spark master.
+
+I am going to use local multithreaded JVM with three threads.
+
+So we created a Spark session, and that means we created our spark driver.
+
+We will be using this driver to do some data processing, and once we are done with it, we should stop the driver. That's how a typical spark program is structured.
+
+![img_5.png](img_5.png)
+
+
+The final code looks like this after including some logs variables:
+
+![img_6.png](img_6.png)
+
+As a reminder:
+
+![img_7.png](img_7.png)
+
+![img_8.png](img_8.png)
+
+![img_9.png](img_9.png)
+
 ## Configuring Spark Session
+
+Apache Spark is a highly configurable system,and Spark allows you to set those configurations using four different methods.
+
+![img_10.png](img_10.png)
+
+The first approach is to set environment variables that your Spark application will read and infer some information. We have already seen this. We defined SPARK_HOME, HADOOP_HOME, and PYSPARK_PYTHON. Right?
+
+The environment variables are mostly ignored by the developers except few that are required for you to set up your local development environment. As it is mainly used by the cluster admins.
+
+The other place to configure your Spark is the spark-defaults-dot-conf file. We used this one also previously. We used this file to configure some JVM variables such as log4j configuration file, log file location, and name.
+
+However, this file is to set some default configurations for all the applications and used by your cluster admins.
+
+This method of configuring your Spark application is also ignored by developers, and we use this occasionally for our local development environment.
+
+The third and fourth method is for developers. Now let me talk about the spark-submit.
+
+We have already used spark-submit before.
+
+Spark-submit allows you to configure your application using command-line options such as --master. You have already seen that in action.
+
+Similarly, spark-submit can also accept any Spark config using the --conf flag.
+
+Here is an example:
+
+![img_11.png](img_11.png)
+
+If you have a space in your config, then you must enclose it in double-quotes. Otherwise, the double quote is not necessary.
+
+The fourth and last method is to code the configurations in your application. We used this method also.
+
+I am setting appName() and master().
+
+![img_12.png](img_12.png)
+
+You can set these from the command line using spark-submit, or you can set them from here, in your application code. It's not only appName() and master(). You can set whatever config you want.
+
+Create a SparkConf object. Now, you can use the set() method to set the application name config. You can set as many configs as you want. However, you must know the actual config property name string.
+
+For example, the spark application name config string is "spark.app.name."
+
+Similarly, "spark.master" is the string config name for the spark master.
+
+![img_13.png](img_13.png)
+
+You can refer to the following documentation link for a list of all available spark configs.
+
+https://spark.apache.org/docs/latest/configuration.html#application-properties
+
+Now, you might be wondering which configuration method to use?  What if we set the same config from two places? Which one takes precedence?
+
+When you run your spark application on your local machine, or you submit it to the Spark cluster, in both the cases, your application will read the environment variable, spark-defaults, and the command-line options.
+
+Spark will combine all these configs and create a single set of initial configs which go to your application and sit in your Spark Session. In all this, environment variables are given the lowest precedence, then comes the spark-defaults and finally the command-line options. So, if you have something defined in the spark-defaults and the same config is also set via the command line Spark will overwrite the spark default config with the Spark submit config.
+
+Finally, all these initial configs can be overwritten by you from your application code. So, setting the Spark configurations from your application code gets the *highest precedence*.
+
+Leave the environment variables and spark-defaults for your cluster admins.
+
+Do not make your application dependent on these two methods of setting configurations.
+
+So you should be using either command line or spark conf.
+
+![img_14.png](img_14.png)
+
+Now let's come back to our application code.
+
+So, we are setting these configurations. However, I still see one problem. All these configurations are hardcoded in my application.
+
+In some cases, you may want to avoid hard-coding specific configs and keep it outside your application code. For example, hardcoding the master is a big problem.
+
+While developing and debugging my application, I want to use the local master. However, once my application is ready, I want to deploy it in a cluster environment. And I don't know yet if I am going to use it on YARN or on a Kubernetes cluster. So, I do not want to hard-code this config.
+
+The first approach is to keep these configurations in a separate file and load it from the file at run-time. I am creating a Python config file named spark.conf.
+
+![img_15.png](img_15.png)
+
+Now come back to your code and create a new python file in the lib package. Name it utils.py.
+
+I am going to create a new function. This function will load the configurations from the Spark.conf file and return a SparkConf object.
+
+
+We will create a new SparkConf object.
+
+Read the configs from the file.
+
+Loop through the configs and set it to the SparkConf.
+
+Finally, return the SparkConf object.
+
+![img_16.png](img_16.png)
+
+
+This function reads all the configs from the "Spark.conf" file, set them to the SparkConf object, and return the ready to use SparkConf.
+
+Now, we need to come back to the main and use it in the spark builder.config method.
+
+![img_17.png](img_17.png)
+
+Done. We fixed the hardcoding problem.
+
+Now you can add more and more configs in this spark.conf file, and your application will load it at runtime and use them to configure your SparkSession.
+
+
+*You can read all your spark configs using the SparkSession.sparkContext.getConf() method. And you can print a debug string.*
+
+Let's run it.
+![img_18.png](img_18.png)
+
+Great! You can see the outcome. We loaded everything from the config file.
+
 ## Data Frame Introduction
 ## Data Frame Partitions and Executors
 ## Spark Transformation and Actions
