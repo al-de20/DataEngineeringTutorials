@@ -282,7 +282,7 @@ Let's run it.
 ![img_18.png](img_18.png)
 
 Great! You can see the outcome. We loaded everything from the config file.
-
+g 
 ## Data Frame Introduction
 ## Data Frame Partitions and Executors
 ## Spark Transformation and Actions
