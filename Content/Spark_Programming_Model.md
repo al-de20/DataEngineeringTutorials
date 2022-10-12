@@ -284,6 +284,152 @@ Let's run it.
 Great! You can see the outcome. We loaded everything from the config file.
 
 ## Data Frame Introduction
+
+A typical data processing is a three-step process:
+
+* Read the data.
+* Processes it according to your business requirement.
+* Write the outcome of your processing.
+
+Let's implement the first step in our Spark application.
+
+Reading the data. I have a data file named sample.csv. It is a small file with less than ten records, and I am going to use it for local development, debugging, and testing.
+
+I am keeping this file in a separate directory named data.
+
+I want to read this file using Spark. So, the first thing that I want to do is to pass the file name and location as a command-line argument to my application so we don't have to hardcode the data file name and location in my application.
+
+![img_20.png](img_20.png)
+
+
+Then we check for the command line argument. If not provided, we log an error and exit the program.
+
+![img_21.png](img_21.png)
+
+So now, we are ready to read the data file, and the file name is given in the command line argument.
+
+We start with the Spark Session and call the read() method, which returns a DataFrameReader object. The DataFrameReader is your gateway to read the data in Apache Spark. It allows you to read the data from a variety of sources,
+and you can see all these functions here:
+
+![img_22.png](img_22.png)
+
+You can read a CSV, JDBC, JSON, ORC, Parquet, and Text File.
+
+Well, the list doesn't end here, and I will cover it in more detail at a later stage.
+
+
+However, we want to read a CSV file, so let's use the CSV() method. All you need to do is to pass the file path.
+
+```
+survey_df = load_survey_df(spark,sys.argv[1])
+```
+
+Spark will load the data into a Spark DataFrame.
+
+CSV data files are plain text data files. And in the sample data the first row is a header row, and the rest of the rows are data rows.
+
+
+The DataFrameReader doesn't know these details. So, we must tell this information to the DataFrameReader so it can read the file correctly.
+You can do it using the DataFrameReader *option()* method.
+
+The option method takes a key-value pair,
+and you can get a list of all available CSV options from Spark Documentation.
+
+https://spark.apache.org/docs/latest/api/python/reference/pyspark.sql/api/pyspark.sql.DataFrameReader.html?highlight=dataframereader#pyspark.sql.DataFrameReader
+
+
+Checkout the CSV method,
+
+and you should get the list of all available options.
+
+![img_23.png](img_23.png)
+
+The sample data file comes with a header row, so I want to set the header option to let the dataframe know that the first row contains de columns.
+The default value is false, and I am going to set it to true.
+```
+.option("header", "true")
+```
+
+Now the DataFrameReader will skip the first row but use it to infer the column names and create a Spark DataFrame.
+
+
+
+But What is a DataFrame?
+
+![img_19.png](img_19.png)
+
+Let me give you a quick introduction to the DataFrame.
+
+Spark DataFrame is a two-dimensional table-like data structure that is inspired by Pandas DataFrame.
+They are a distributed table with named columns and well-defined schema.
+That means each column has a specific data type such as integer, float, string, timestamp, etc.
+
+You can visualize your DataFrame as a database table.
+And most of the operations that you are going to perform on these DataFrames are also similar to database table operation
+using rows and columns.
+
+So, if you have already worked with databases and SQL, you are going to feel at home with Spark DataFrames.
+
+So now you know that a DataFrame must have two things.
+
+* Column Names
+
+* Schema - I mean, data types for each column.
+
+
+Now let's come back to our program.
+We are reading a CSV file using a DataFrameReader.
+We are also using the header option.
+So, the DataFrameReader is going to use the header row and infer the column names.
+But what about the schema?
+I mean, the data types for the columns.
+
+Let's look at the CSV options.
+
+![img_24.png](img_24.png)
+
+You can use the inferSchema option.
+This option will allow the DataFrameReader to read a portion of the file
+and make an intelligent guess about the data types for all the columns.
+
+This option works well in some cases, but it fails to infer the correct data types in most of the cases. However, at this stage,
+we are good to go with the infer schema option.
+
+So let me add the inferSchema option. This code is going to read a CSV data file,
+use the first row to infer the column names, make an intelligent guess for the column data types,
+and finally return a DataFrame.
+
+![img_25.png](img_25.png)
+
+
+
+However, I do not want to keep this code in my main() method.
+I recommend that you create a function and move this code to the function.
+As we are going to reuse this code at least twice, if not more.
+
+So, let me create a function.
+I am going to name it as loadSurveyDF.
+This function will take two arguments, SparkSession and the file location.
+And the function is going to return a DataFrame.
+
+![img_26.png](img_26.png)
+
+
+Now you can call this function from your main() method. If you want to quickly run it and verify your code,
+use the DataFrame show() method and run it.
+
+![img_27.png](img_27.png)
+
+
+
+Great!
+
+It worked.
+
+![img_28.png](img_28.png)
+
+
+
 ## Data Frame Partitions and Executors
 ## Spark Transformation and Actions
 ## Spark Jobs Stages and Task
