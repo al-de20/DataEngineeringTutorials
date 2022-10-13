@@ -429,9 +429,136 @@ It worked.
 ![img_28.png](img_28.png)
 
 
-
 ## Data Frame Partitions and Executors
+
+I already mentioned that the DataFrame is a distributed data structure. We already learned that the SparkSession offers you a read() method to read data from a data file
+such as a CSV file. In a real-life scenario, your CSV file is going to be stored in a distributed storage
+such as HDFS or cloud storage such as Amazon S3.
+
+All these distributed storage systems are designed to partition your data file and store those partitions across the distributed storage nodes.
+
+So let's assume that you have these 10 node storage cluster.
+When you save your file on this cluster, your file might be broken into 100 smaller partitions,
+and those partitions are stored on these ten nodes.
+
+![img_29.png](img_29.png)
+
+Since the data is already partitioned, so the DataFrameReader is also going to read them as a bunch of in-memory partitions.
+
+So you can think of your DataFrame as a bunch of smaller DataFrames,
+each logically represent a partition.
+
+![img_30.png](img_30.png)
+
+Now let me shift your attention to the Spark executors.
+We already learned that you can configure your SparkSession to start N number of executors.
+
+You can also decide on how much memory and CPU do you want to allocate to your executors.
+All those configurations are available to your driver.
+
+Let's assume that you configured to start five executors,
+each with 10 GB of memory and 5 CPU cores.
+
+Now the driver is again going to reach out to the cluster manager and ask for the containers.
+Once those containers are allocated,
+the driver is going to start the executors within those containers.
+
+![img_31.png](img_31.png)
+
+We already know that each executor is nothing but a JVM process with some assigned CPU cores and memory.
+
+In this case, each executor JVM is started with 5 CPU cores and 10 GB memory.
+
+Now the driver is ready to distribute the work to these executors. So, the driver is going to assign some DataFrame partitions to each JVM core.
+And these executor cores will load their respective partitions in the memory.
+And this is how the final state looks like.
+
+![img_32.png](img_32.png)
+
 ## Spark Transformation and Actions
-## Spark Jobs Stages and Task
-## Understanding your Execution Plan
-## Unit Testing Spark Application
+
+We already learned to read our data file into a Spark DataFrame.
+The DataFrame is internally a distributed data structure, and it is composed of a bunch of partitions.
+
+However, a Spark programmer can visualize it as a plain DataFrame structure. And that's what Spark brings to us
+*hiding out all the complexities of distributed processing*,
+and we can simply work with a DataFrame as we work with a plain non-distributed data structure.
+
+After reading our data, we are now ready to process it. However,
+Spark DataFrame is an immutable data structure.
+
+However, you can give instructions to your driver about what do you want to do.
+And let the driver decide how to achieve it with the help of the executors.
+These instructions to the driver are called transformations.
+
+These transformations could be as simple as some SQL like operations
+such as select(), filter(), and groupBy().
+
+![img_33.png](img_33.png)
+
+Let's come back to our example and add some transformations.
+
+![img_34.png](img_34.png)
+
+
+If you look at all these transformations carefully, you will realize that we are creating a graph of the operations.
+So this simple graph might look like this.
+
+![img_35.png](img_35.png)
+
+Spark data processing is all about creating a DAG of operations.
+So all that we are going to do in Spark programming is to create a DAG of activities
+And these operations are of two types.
+
+* Transformations: Transformations are used to transform one DataFrame into another DataFrame without modifying the original DataFrame.
+
+* Actions.
+
+### Lazy Evaluations
+
+Lazy evaluation is a functional programming technique.
+
+Look at the transformations below.
+
+A typical programmer is going to look at these transformations as individual statements that are executed and evaluated line by line.
+So you might think of it as read the data, then perform this transformation, then move to the next operation and execute it, and move on line by line.
+
+```
+    survey_df = load_survey_df(spark,sys.argv[1])
+    filtered_df = survey_df.where("Age < 40") 
+    selected_df = filtered_df.select("Age","Gender","Country","State") 
+    grouped_df = selected_df.group("Country")
+    count_df=grouped_df.count()
+    survey_df.show()
+```
+
+Spark programs are not going to behave the same because we are using a builder pattern to create a DAG of transformations.
+
+All of this goes to the Spark Driver. The driver is going to look at these operations,
+rearrange them to optimize certain activities,
+and finally create an execution plan which will be executed by the executors. So these statements are not executed as individual operations,
+but they are converted into an optimized execution plan which is terminated and triggered by an Action.
+
+But what is an Action?
+
+*Read, Write, Collect, and Show.*
+
+Look at the code.
+
+All of those are transformations because we are transforming one DataFrame into another DataFrame.
+
+Once we are done, we want to see the result. And you cannot see the result until we execute and finish all of this.
+
+
+So, we need to take action, compute the result, and show it to the console. And that's why show() is an Action.
+
+Similarly, all of these are actions. You want to write the result to a data file
+Collect the result from the executors to the driver Read a data file to infer the column names and schema.
+So, Spark Actions will terminate the Transformation DAG and trigger the execution.
+
+That is why we say that the transformations are lazy,
+but actions are evaluated immediately.
+
+Anything which takes one DataFrame and converts into another DataFrame is a Transformation.
+but Operations that require you to read, write, collect to show the data is an Action.
+
