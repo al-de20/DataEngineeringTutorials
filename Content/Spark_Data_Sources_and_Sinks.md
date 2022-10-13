@@ -211,7 +211,7 @@ flightTimeCsvDF = spark.read \
     flightTimeParquetDF = spark.read \
         .format("parquet") \
         .load("data/flight*.parquet")
-
+gfgh
     flightTimeParquetDF.show(5)
     logger.info("Parquet Schema:" + flightTimeParquetDF.schema.simpleString())
 ```
