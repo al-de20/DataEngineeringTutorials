@@ -549,6 +549,8 @@ This how the catalog entry looks like when the UDF is registered via SQL Express
 
 ![img_110.png](img_110.png)
 
+
+
 ## Misc Transformations
 
 ```
