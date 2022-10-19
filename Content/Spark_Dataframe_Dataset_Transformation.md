@@ -392,6 +392,165 @@ Look at the filter function for dataframes. It accepts column expressions and SQ
 
 ![img_104.png](img_104.png)
 
+## Creating and Using User Defined Functions
+
+Spark also allows you to create user-defined functions and use them in these two types of expressions.
+
+In this lecture, we will learn to create UDF and use them in our expressions.
+
+I created this UDFDemo example.
+
+![img_105.png](img_105.png)
+
+I have this sample data file.
+
+![img_106.png](img_106.png)
+
+I am creating a Spark session and loading this data file into a Dataframe.
+```
+if __name__ == "__main__":
+    spark = SparkSession \
+        .builder \
+        .appName("UDF Demo") \
+        .master("local[2]") \
+        .getOrCreate()
+
+    logger = Log4j(spark)
+
+    survey_df = spark.read \
+        .option("header", "true") \
+        .option("inferSchema", "true") \
+        .csv("data/survey.csv")
+```
+
+Let me show you the Dataframe. Can you see this gender column?
+
+![img_108.png](img_108.png)
+
+We have a different kind of text here.
+I want to standardize it to one of the following values.
+
+* Male
+* Female
+* Unknown
+
+
+We have many ways to do this transformation.
+
+However, I want to create a custom function to fix this problem.
+
+So, let's define the function.
+
+```
+def parse_gender(gender):
+    female_pattern = r"^f$|f.m|w.m"
+    male_pattern = r"^m$|ma|m.l"
+    if re.search(female_pattern, gender.lower()):
+        return "Female"
+    elif re.search(male_pattern, gender.lower()):
+        return "Male"
+    else:
+        return "Unknown"
+```
+
+So my function is now ready. How do I use it?
+
+However, we have two approaches to develop the expression
+
+* Column Object Expression
+
+* And String Expression
+
+### Column Object Expression
+
+I am going to create a new Dataframe transforming the existing Dataframe.
+And I am going to use the ***withColumn()*** transformation.
+
+The withColumn() transformation allows you to transform a single column
+without impacting other columns in the Dataframe.
+
+The first argument is the column name that you want to transform. So, in this case, it is the Gender column. The next argument is a column expression.
+So, what I want to do is to use the parseGender() function and supply the Gender column.
+
+My parseGender() function will fix the gender string and return a standardized gender string.
+
+![img_109.png](img_109.png)
+
+However, we cannot simply use a function in a Column Object Expression.
+
+***I need to register my custom function to the driver and make it a UDF.*** I am going to use the ***UDF()*** function to register it. You can also specify the return type of your function.
+The default return type is ***StringType.***
+
+
+
+```
+parse_gender_udf = udf(parse_gender, returnType=StringType())
+```
+
+The UDF() function will register it and returns a reference to the registered UDF. And you now need to use it here:
+
+```
+survey_df2 = survey_df.withColumn("Gender", parse_gender_udf("Gender"))
+```
+
+It is a three-step process to use a user-defined function:
+
+* Create your function.
+* Register it as UDF.
+* Get the reference.
+
+Now your function is registered in the Spark Session.
+And your driver will serialize and send this function to the executors.
+
+### String/SQL Expression
+
+So we learned to create and use a UDF in a Column Object expression. Now, we're going to do the same but using a SQL expression.
+However, the registration process is different.
+
+We need to register it as a SQL function, and it should go to the catalog.
+And that is done using Spark Session UDF registration method.
+The first argument is the name of the UDF, and the second argument is the signature of your function.
+
+```
+spark.udf.register("parse_gender_udf", parse_gender, StringType())
+```
+
+So, these two registrations are different.
+The first one is to register your function as a Dataframe UDF.
+This method will not register the UDF in the catalog.
+It will only create a UDF and serialize the function to the executors.
+
+The second type of UDF registration is to register it as a SQL function.
+This one will also create one entry in the catalog.
+
+Let's query the catalog after this registration:
+
+So, we use spark-catalog and get a list of all functions in the catalog.
+Then we loop through the list. And check if the parse gender is there in the function name.
+
+So this code is a Python List Comprehension, and I am assuming you understand it.
+
+```
+[logger.info(r) for r in spark.catalog.listFunctions() if "parse_gender" in r.name]
+```
+Now let's come to the expression creation.
+I am going to create an equivalent SQL expression.
+
+So, the first thing is to place a double quote around the expression and make it a string.
+However, we have a small problem.
+The withColumn() doesn't take a SQL expression.
+But that's not a big problem, We can use the ***expr()*** function here.
+
+```
+survey_df3 = survey_df.withColumn("Gender", expr("parse_gender_udf(Gender)"))
+```
+
+This how the catalog entry looks like when the UDF is registered via SQL Expression:
+
+![img_110.png](img_110.png)
+
+## Misc Transformations
+
 ```
 
 ```
