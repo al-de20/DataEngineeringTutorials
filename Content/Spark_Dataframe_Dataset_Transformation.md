@@ -551,8 +551,184 @@ This how the catalog entry looks like when the UDF is registered via SQL Express
 
 
 
-## Misc Transformations
+## Miscellaneous Transformations
+
+![img_111.png](img_111.png)
+
+### 1.Quick method to create Dataframes
+
+Let me create a list with some sample data elements.
+
+So, I am creating five sample records,each having four fields.
+
+Some of the year fields are four-digit year, and others are only two digits.
+We have a duplicate record also in this sample data set.
+We will learn to fix all these problems and also learn a few other things.
 
 ```
+data_list = [("Ravi", "28", "1", "2002"),
+                 ("Abdul", "23", "5", "81"), 
+                 ("John", "12", "12", "6"),
+                 ("Rosy", "7", "8", "63"),
+                 ("Abdul", "23", "5", "81")] 
+```
+
+So let me create a new DataFrame using the data list.
+I am using the ***CreateDataFrame()*** method without any schema.
 
 ```
+raw_df = spark.createDataFrame(data_list).toDF("name", "day", "month", "year")
+```
+
+### 2. Adding monotonically increasing id
+
+I'd like to add one more field in this data frame to create a unique identifier for each record.
+You can do it using a built-in function monotonically increasing id. The function generates a monotonically increasing integer number,
+which is guaranteed to be unique across all partitions. However, don't expect a consecutive sequence number.
+
+Now I will create a new data frame and use the ***withColumn()*** transformation.
+We already learned to use the ***withColumn()*** for transforming an existing column.
+You can also use this method to add a new column in the data frame.
+
+So, I am going to transform the column ***id***.
+Since column ***id*** does not exist in the data frame, it will be added.
+
+```
+raw_df.withColumn("id", monotonically_increasing_id()) 
+```
+
+![img_113.png](img_113.png)
+
+### 3. Using CASE WHEN THEN transformation
+
+The Case When Then is a popular construct in programming languages.
+
+It is commonly known as switch case, and we prefer to use it to avoid lengthy if-else statements.
+I want to use it to fix the year digit problem.
+So, I have these two-digit years, and I want to make it four-digit.
+
+![img_114.png](img_114.png)
+
+Well, it is almost impossible to fix it correctly, but we can make some assumptions to correct it.
+
+Let's assume that the year between 0 to 20 has an intention to be a post-2000 year.
+
+And anything between 21 to 99 is in the previous century.
+
+So, this one should be 2006:
+
+![img_115.png](img_115.png)
+
+and the other two are the 1981 and 1963:
+
+![img_116.png](img_116.png)
+![img_117.png](img_117.png)
+
+This one is a duplicate:
+
+![img_118.png](img_118.png)
+
+Let's create a **CASE** expression for this. I will add one more withColumn() to work with the year filed.
+Then I am going to create an expression using a multi-line string, so now, I can write the case expression.
+
+![img_119.png](img_119.png)
+
+Do you see any problem on the results?
+
+The **year** becomes decimal. This is caused by the incorrect data type and the automatic type promotion.
+
+The year field in the data frame is a string. However, we performed an arithmetic operation in the year field.
+So, the Spark SQL engine automatically promoted it to decimal.
+
+And after completing the arithmetic operation,
+it is again ***demoted back*** to string because the data frame schema is for a string field.
+
+Now, how do we fix this? ......Casting.
+
+### 4. Casting your columns
+
+There are two common aproaches for casting:
+
+* Inline Cast
+* Change Schema
+
+The first option is to make sure that the Spark doesn't automatically promote or demote your field types.
+Instead, we can write code to push it to an appropriate type.
+
+#### Inline Cast
+
+I am casting the year to an int.
+Now the Spark SQL engine does not need to promote it and cause problems for us.
+
+This is the recommended approach for casting your fields.
+![img_120.png](img_120.png)
+
+Now you see four-digit years:
+
+![img_121.png](img_121.png)
+
+#### Change the schema
+
+So, Using ***withColumn()** is going to give me a modified year column.
+I can use the column functions here and cast it to IntegerType.
+And this casting will truncate the decimal part.
+However, since I am converting the column itself my data frame schema will also change.
+
+![img_122.png](img_122.png)
+
+In fact, I should have fixed the data types in the beginning and avoided this casting altogether.
+Let's do it the right way.
+
+```
+    final_df = raw_df.withColumn("day", col("day").cast(IntegerType())) \
+        .withColumn("month", col("month").cast(IntegerType())) \
+        .withColumn("year", col("year").cast(IntegerType())) \
+```        
+ 
+### 5. Adding columns to Dataframes
+
+I want to add one more column combining the day, month, and year.
+
+Create a new field for the date of birth.
+
+Create an expression to concat all the three fields and a field separator.
+
+![img_123.png](img_123.png)
+
+However, this is going to give me a string.
+And I want to make it a date filed.
+So, I can use the ***to_date()*** function.
+
+You can use it inside your SQL expression.
+
+![img_124.png](img_124.png)
+
+Or, you can use it on the column.
+
+![img_125.png](img_125.png)
+
+### 6. Dropping Columns
+
+However, these three fields are now useless.
+
+![img_126.png](img_126.png)
+
+Let's drop them:
+
+![img_127.png](img_127.png)
+
+### 7. Dropping duplicate rows
+
+However, if we consider name and dob, then we have one duplicate record.
+
+![img_128.png](img_128.png)
+
+Let's drop it.
+
+![img_129.png](img_129.png)
+
+### 8. Sorting Dataframes
+
+Can I sort it by dob in descending order?
+
+![img_130.png](img_130.png)
