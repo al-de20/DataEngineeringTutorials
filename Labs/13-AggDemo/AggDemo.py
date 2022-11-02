@@ -49,3 +49,15 @@ if __name__ == "__main__":
              )
 
     summary_df.show()
+
+invoice_df.printSchema()
+
+summary_sql2 = spark.sql("""
+select Country,weekofyear(to_date(Sales.InvoiceDate,"dd-MM-yyyy H.mm")) WeekNumber, 
+count(distinct InvoiceNo),
+sum(Quantity) as TotalQuantity,
+round(sum(Quantity*UnitPrice),2) as InvoiceValue
+from Sales
+group by Country,InvoiceDate
+""")
+summary_sql2.show()
